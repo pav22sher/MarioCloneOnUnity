@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class PlayerScript : MonoBehaviour {
 
+	public bool isBlockAllAction;
 	public bool isGameOver=false;
 	public float speed = 3f;
 	public float jumpForce = 15.2f;
@@ -48,67 +49,69 @@ public class PlayerScript : MonoBehaviour {
 
 	void Update()
 	{
-		if (isNoActive) {
-			Color color = Color.white;
-			color.a = 0.5f;
-			sr.color = color;
-			gameObject.layer = 12;
-			l_noactive_time -= Time.deltaTime;
-			if (l_noactive_time <= 0) {
-				gameObject.layer = 8;
-				color.a = 1f;
+		if (!isBlockAllAction) {
+			if (isNoActive) {
+				Color color = Color.white;
+				color.a = 0.5f;
 				sr.color = color;
-				l_noactive_time = noactiveTime;
-				isNoActive = false;
-			}
-		}
-		if (isUnKill) {
-			l_unkill_time -= Time.deltaTime;
-			if (l_unkill_time <= 0) {
-				l_unkill_time = unkillTime;
-				isUnKill = false;
-				if (status == PlayerStatus.Shot) {
-					an.SetTrigger ("toShot");
-				} else {
-					an.SetTrigger ("toSmall");
+				gameObject.layer = 12;
+				l_noactive_time -= Time.deltaTime;
+				if (l_noactive_time <= 0) {
+					gameObject.layer = 8;
+					color.a = 1f;
+					sr.color = color;
+					l_noactive_time = noactiveTime;
+					isNoActive = false;
 				}
 			}
-		}
-		//State
-		if (isGameOver) {
-			if (!isUnKill) {
-				GameOverLogic ();
-			}
-			isGameOver = false;
-		} else {
-			if (ground != 0) {
-				if (Mathf.Abs (rb.velocity.x) > 0 && !isBarrier) {
-					state = PlayerState.Run;
-				} else {
-					if (Input.GetKey (KeyCode.RightShift) && status != PlayerStatus.Small){
-							state = PlayerState.Sit;
-					}else {
-						state = PlayerState.Idle;
+			if (isUnKill) {
+				l_unkill_time -= Time.deltaTime;
+				if (l_unkill_time <= 0) {
+					l_unkill_time = unkillTime;
+					isUnKill = false;
+					if (status == PlayerStatus.Shot) {
+						an.SetTrigger ("toShot");
+					} else {
+						an.SetTrigger ("toSmall");
 					}
 				}
-				if (Input.GetButton("Jump") && rb.velocity.y==0) {
-					JumpLogic ();
+			}
+			//State
+			if (isGameOver) {
+				if (!isUnKill) {
+					GameOverLogic ();
 				}
+				isGameOver = false;
 			} else {
-				state = PlayerState.Jump;
-			}
-			if (Input.GetButton ("Horizontal")) {
-				MoveLogic ();
-			}
-			l_reload_time -= Time.deltaTime;
-			if(Input.GetButton("Fire1") && status == PlayerStatus.Shot){
-				if (l_reload_time < 0) {
-					float sign = sr.flipX ? -1 : 1;
-					Vector2 position = new Vector2 (transform.position.x+sign*0.24f,transform.position.y+0.32f);
-					Transform obj = Instantiate (bullet, position, Quaternion.identity);
-					obj.GetComponent<SpriteRenderer> ().flipX = sr.flipX;
-					obj.GetComponent<PlayerBulletScript> ().speed=sign*obj.GetComponent<PlayerBulletScript> ().speed;
-					l_reload_time = reloadTime;
+				if (ground != 0) {
+					if (Mathf.Abs (rb.velocity.x) > 0 && !isBarrier) {
+						state = PlayerState.Run;
+					} else {
+						if (Input.GetKey (KeyCode.RightShift) && status != PlayerStatus.Small) {
+							state = PlayerState.Sit;
+						} else {
+							state = PlayerState.Idle;
+						}
+					}
+					if (Input.GetButton ("Jump") && rb.velocity.y == 0) {
+						JumpLogic ();
+					}
+				} else {
+					state = PlayerState.Jump;
+				}
+				if (Input.GetButton ("Horizontal")) {
+					MoveLogic ();
+				}
+				l_reload_time -= Time.deltaTime;
+				if (Input.GetButton ("Fire1") && status == PlayerStatus.Shot) {
+					if (l_reload_time < 0) {
+						float sign = sr.flipX ? -1 : 1;
+						Vector2 position = new Vector2 (transform.position.x + sign * 0.24f, transform.position.y + 0.32f);
+						Transform obj = Instantiate (bullet, position, Quaternion.identity);
+						obj.GetComponent<SpriteRenderer> ().flipX = sr.flipX;
+						obj.GetComponent<PlayerBulletScript> ().speed = sign * obj.GetComponent<PlayerBulletScript> ().speed;
+						l_reload_time = reloadTime;
+					}
 				}
 			}
 		}
