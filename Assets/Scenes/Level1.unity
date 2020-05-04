@@ -1341,7 +1341,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!61 &108305619
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1664,11 +1664,11 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4165254241266002, guid: 658317fe28a86ff46a6a4c3303af05aa, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 30.58
+      value: 110.3
       objectReference: {fileID: 0}
     - target: {fileID: 4165254241266002, guid: 658317fe28a86ff46a6a4c3303af05aa, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 1.2
+      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: 4165254241266002, guid: 658317fe28a86ff46a6a4c3303af05aa, type: 2}
       propertyPath: m_LocalPosition.z
@@ -5602,9 +5602,12 @@ MonoBehaviour:
   isGameOver: 0
   speed: 3
   jumpForce: 15.2
+  isNoActive: 0
+  noactiveTime: 2
   bullet: {fileID: 4767310441971376, guid: 2149eb9f5fc11f54e9852692051355d3, type: 2}
-  reloadTime: 0.2
+  reloadTime: 0.5
   isUnKill: 0
+  unkillTime: 8
   status: 0
 --- !u!4 &502929016
 Transform:
@@ -5613,7 +5616,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 502929014}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 46.3, y: -1.781, z: 0}
+  m_LocalPosition: {x: 46.35, y: -1.781, z: 0}
   m_LocalScale: {x: 1.6, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -12396,11 +12399,11 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4438427048039276, guid: dd7b3b149c85dad4aa4010e89fd73f9e, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 18.93
+      value: 84.13
       objectReference: {fileID: 0}
     - target: {fileID: 4438427048039276, guid: dd7b3b149c85dad4aa4010e89fd73f9e, type: 2}
       propertyPath: m_LocalPosition.y
-      value: -1.33
+      value: 3.18
       objectReference: {fileID: 0}
     - target: {fileID: 4438427048039276, guid: dd7b3b149c85dad4aa4010e89fd73f9e, type: 2}
       propertyPath: m_LocalPosition.z

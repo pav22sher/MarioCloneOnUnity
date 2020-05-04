@@ -7,11 +7,19 @@ public class PlayerScript : MonoBehaviour {
 	public bool isGameOver=false;
 	public float speed = 3f;
 	public float jumpForce = 15.2f;
+
+	public bool isNoActive;
+	public float noactiveTime = 2f;
+	private float l_noactive_time;
+
 	public Transform bullet;
-	public float reloadTime = 0.2f;
-	private float time;
+	public float reloadTime = 0.5f;
+	private float l_reload_time;
 
 	public bool isUnKill;
+	public float unkillTime = 8f;
+	private float l_unkill_time;
+
 	public PlayerStatus status;
 
 	private Rigidbody2D rb;
@@ -32,15 +40,45 @@ public class PlayerScript : MonoBehaviour {
 		sr = GetComponent<SpriteRenderer> ();
 		an = GetComponent<Animator> ();
 		cd = GetComponent<CapsuleCollider2D> ();
-		time = reloadTime;
+		l_noactive_time = noactiveTime;
+		l_reload_time = reloadTime;
+		l_unkill_time = unkillTime;
 		status = PlayerStatus.Small;
 	}
 
 	void Update()
 	{
+		if (isNoActive) {
+			Color color = Color.white;
+			color.a = 0.5f;
+			sr.color = color;
+			gameObject.layer = 12;
+			l_noactive_time -= Time.deltaTime;
+			if (l_noactive_time <= 0) {
+				gameObject.layer = 8;
+				color.a = 1f;
+				sr.color = color;
+				l_noactive_time = noactiveTime;
+				isNoActive = false;
+			}
+		}
+		if (isUnKill) {
+			l_unkill_time -= Time.deltaTime;
+			if (l_unkill_time <= 0) {
+				l_unkill_time = unkillTime;
+				isUnKill = false;
+				if (status == PlayerStatus.Shot) {
+					an.SetTrigger ("toShot");
+				} else {
+					an.SetTrigger ("toSmall");
+				}
+			}
+		}
 		//State
 		if (isGameOver) {
-			GameOverLogic ();
+			if (!isUnKill) {
+				GameOverLogic ();
+			}
 			isGameOver = false;
 		} else {
 			if (ground != 0) {
@@ -62,15 +100,15 @@ public class PlayerScript : MonoBehaviour {
 			if (Input.GetButton ("Horizontal")) {
 				MoveLogic ();
 			}
-			time -= Time.deltaTime;
-			if(Input.GetKey (KeyCode.RightControl) && status == PlayerStatus.Shot){
-				if (time < 0) {
+			l_reload_time -= Time.deltaTime;
+			if(Input.GetKey (Input.GetButton("Fire1")) && status == PlayerStatus.Shot){
+				if (l_reload_time < 0) {
 					float sign = sr.flipX ? -1 : 1;
 					Vector2 position = new Vector2 (transform.position.x+sign*0.24f,transform.position.y+0.32f);
 					Transform obj = Instantiate (bullet, position, Quaternion.identity);
 					obj.GetComponent<SpriteRenderer> ().flipX = sr.flipX;
 					obj.GetComponent<PlayerBulletScript> ().speed=sign*obj.GetComponent<PlayerBulletScript> ().speed;
-					time = reloadTime;
+					l_reload_time = reloadTime;
 				}
 			}
 		}
@@ -102,6 +140,7 @@ public class PlayerScript : MonoBehaviour {
 				an.SetTrigger ("toSmall");
 			transform.localScale = new Vector2 (1.6f,1f);
 			status = PlayerStatus.Small;
+			isNoActive = true;
 		}
 	}
 
@@ -117,9 +156,17 @@ public class PlayerScript : MonoBehaviour {
 		if (coll.gameObject.tag == "Barrier") {
 			isBarrier = true;
 		}
-		if (coll.gameObject.tag == "BigBonus") {
-			transform.localScale = new Vector2 (1.8f,1.8f);
-			status = PlayerStatus.Big;
+		if (isUnKill && (coll.gameObject.tag == "Enemy" || coll.gameObject.tag == "lacitu")) {
+			Collider2D cd1 = coll.gameObject.GetComponent<CapsuleCollider2D> ();
+			Rigidbody2D rigidbody2D = coll.gameObject.GetComponent<Rigidbody2D> ();
+			SpriteRenderer sp1 = coll.gameObject.GetComponent<SpriteRenderer> ();
+			sp1.sortingLayerName = "FrontLayer";
+			sp1.sortingOrder = 10;
+			sp1.flipY = true;
+			coll.transform.position = new Vector2 (coll.transform.position.x, coll.transform.position.y + 0.5f);
+			cd1.enabled = false;
+			rigidbody2D.constraints = RigidbodyConstraints2D.FreezePositionX;
+			Destroy (coll.gameObject, 3f);
 		}
 	}
 	void OnCollisionExit2D(Collision2D coll)

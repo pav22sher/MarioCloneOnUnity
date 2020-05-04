@@ -23,6 +23,8 @@ public class StarScript : MonoBehaviour {
 			rb.AddForce (transform.up * jumpForce, ForceMode2D.Impulse);
 		}
 		if (coll.gameObject.name.Equals("Player")) {
+			coll.gameObject.GetComponent<Animator> ().SetTrigger ("toUnkill");
+			coll.gameObject.GetComponent<PlayerScript> ().isUnKill = true;
 			Destroy (gameObject);
 		}
 		if (coll.gameObject.tag.Equals("Barrier")) {

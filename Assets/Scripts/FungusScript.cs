@@ -20,6 +20,8 @@ public class FungusScript : MonoBehaviour {
 	void OnCollisionEnter2D(Collision2D coll)
 	{
 		if (coll.gameObject.name.Equals("Player")) {
+			coll.transform.localScale = new Vector2 (1.8f,1.8f);
+			coll.gameObject.GetComponent<PlayerScript>().status = PlayerStatus.Big;
 			Destroy (gameObject);
 		}
 		if (coll.gameObject.tag.Equals("Barrier")) {
