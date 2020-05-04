@@ -92,7 +92,7 @@ GameObject:
   - component: {fileID: 114783774828598572}
   m_Layer: 10
   m_Name: flower
-  m_TagString: Untagged
+  m_TagString: ShotBonus
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -327,7 +327,7 @@ CapsuleCollider2D:
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
-  m_Size: {x: 0.28, y: 0.28}
+  m_Size: {x: 0.25, y: 0.2}
   m_Direction: 0
 --- !u!70 &70891550714772046
 CapsuleCollider2D:
@@ -418,7 +418,6 @@ MonoBehaviour:
   bonusPrefab: {fileID: 4539317445354318, guid: d7ba393f781e68743911f961883c8e2e,
     type: 2}
   yPosition: 0.68
-  isBig: 0
 --- !u!212 &212461362305730856
 SpriteRenderer:
   m_ObjectHideFlags: 1

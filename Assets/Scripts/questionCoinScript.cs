@@ -2,17 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class brickBoxScript : MonoBehaviour {
-	public Transform particals;
+public class questionCoinScript : MonoBehaviour {
 	void OnTriggerEnter2D(Collider2D c)
 	{
 		if (c.gameObject.name == "Player" && 
 			c.gameObject.GetComponent<Rigidbody2D>().velocity.y>0) {
 			transform.parent.GetComponent<Animator> ().SetTrigger ("isActive");
-			if (c.gameObject.GetComponent<PlayerScript>().status!=PlayerStatus.Small) {
-				Instantiate (particals, transform.position, Quaternion.identity);
-				Destroy (transform.parent.gameObject,0.1f);
-			}
 		}
 	}
 }

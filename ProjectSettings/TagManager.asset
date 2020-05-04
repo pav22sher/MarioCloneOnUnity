@@ -11,6 +11,9 @@ TagManager:
   - bonus
   - Box
   - lakitu
+  - BigBonus
+  - ShotBonus
+  - UnKillBonus
   layers:
   - Default
   - TransparentFX

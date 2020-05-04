@@ -5,7 +5,6 @@ using UnityEngine;
 public class FungsFlower : MonoBehaviour {
 	public Transform bonusPrefab;
 	public float yPosition = 0.68f;
-	public bool isBig;
 	private bool make;
 
 	void OnTriggerEnter2D(Collider2D c)
@@ -13,7 +12,7 @@ public class FungsFlower : MonoBehaviour {
 		if (c.gameObject.name == "Player" && 
 			c.gameObject.GetComponent<Rigidbody2D>().velocity.y>0
 			&& !make) {
-			if (isBig) {
+			if (c.gameObject.GetComponent<PlayerScript>().status!=PlayerStatus.Small) {
 				transform.parent.GetComponent<Animator> ().SetTrigger ("isFlower");
 			} else {
 				transform.parent.GetComponent<Animator> ().SetTrigger ("isFungs");

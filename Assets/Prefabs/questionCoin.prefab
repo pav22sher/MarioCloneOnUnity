@@ -36,7 +36,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4408620591252534}
   - component: {fileID: 61822027666839704}
-  - component: {fileID: 114195526117482878}
+  - component: {fileID: 114518842011539476}
   m_Layer: 0
   m_Name: question_active
   m_TagString: Untagged
@@ -328,7 +328,7 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
---- !u!114 &114195526117482878
+--- !u!114 &114518842011539476
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -336,7 +336,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1527867991918188}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 297b638fb0be2094886cddb36d3b9558, type: 3}
+  m_Script: {fileID: 11500000, guid: 859e1638d5c09414cbcb76ab4e4d5091, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!212 &212541640442299482

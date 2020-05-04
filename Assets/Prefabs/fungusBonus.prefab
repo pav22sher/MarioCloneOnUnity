@@ -25,7 +25,7 @@ GameObject:
   - component: {fileID: 70795839799854976}
   m_Layer: 10
   m_Name: fungusBonus
-  m_TagString: Untagged
+  m_TagString: bonus
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

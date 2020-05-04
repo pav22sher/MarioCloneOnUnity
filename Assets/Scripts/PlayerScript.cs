@@ -11,6 +11,9 @@ public class PlayerScript : MonoBehaviour {
 	public float reloadTime = 0.2f;
 	private float time;
 
+	public bool isUnKill;
+	public PlayerStatus status;
+
 	private Rigidbody2D rb;
 	private SpriteRenderer sr;
 	private Animator an;
@@ -30,23 +33,27 @@ public class PlayerScript : MonoBehaviour {
 		an = GetComponent<Animator> ();
 		cd = GetComponent<CapsuleCollider2D> ();
 		time = reloadTime;
+		status = PlayerStatus.Small;
 	}
 
 	void Update()
 	{
 		//State
 		if (isGameOver) {
-			state = PlayerState.GameOver;
-			DieLogic ();
+			GameOverLogic ();
 			isGameOver = false;
 		} else {
 			if (ground != 0) {
 				if (Mathf.Abs (rb.velocity.x) > 0 && !isBarrier) {
 					state = PlayerState.Run;
 				} else {
-					state = PlayerState.Idle;
+					if (Input.GetKey (KeyCode.RightShift) && status != PlayerStatus.Small){
+							state = PlayerState.Sit;
+					}else {
+						state = PlayerState.Idle;
+					}
 				}
-				if (Input.GetButtonDown ("Jump")) {
+				if (Input.GetButton("Jump") && rb.velocity.y==0) {
 					JumpLogic ();
 				}
 			} else {
@@ -56,11 +63,12 @@ public class PlayerScript : MonoBehaviour {
 				MoveLogic ();
 			}
 			time -= Time.deltaTime;
-			if(Input.GetButton("Fire1")){
+			if(Input.GetKey (KeyCode.RightControl) && status == PlayerStatus.Shot){
 				if (time < 0) {
 					float sign = sr.flipX ? -1 : 1;
 					Vector2 position = new Vector2 (transform.position.x+sign*0.24f,transform.position.y+0.32f);
 					Transform obj = Instantiate (bullet, position, Quaternion.identity);
+					obj.GetComponent<SpriteRenderer> ().flipX = sr.flipX;
 					obj.GetComponent<PlayerBulletScript> ().speed=sign*obj.GetComponent<PlayerBulletScript> ().speed;
 					time = reloadTime;
 				}
@@ -77,14 +85,24 @@ public class PlayerScript : MonoBehaviour {
 
 	private void JumpLogic()
 	{
-		rb.AddForce(transform.up * jumpForce, ForceMode2D.Impulse);
+			rb.AddForce (transform.up * jumpForce, ForceMode2D.Impulse);
 	}
 
-	private void DieLogic()
+	private void GameOverLogic()
 	{
-		rb.AddForce(Vector2.up * jumpForce/1.5f, ForceMode2D.Impulse);
-		cd.enabled = false;
-		rb.constraints = RigidbodyConstraints2D.FreezePositionX;
+		if (status == PlayerStatus.Small) {
+			state = PlayerState.GameOver;
+			if (rb.velocity.y == 0) {
+				rb.AddForce (Vector2.up * jumpForce / 1.5f, ForceMode2D.Impulse);
+			}
+			cd.enabled = false;
+			rb.constraints = RigidbodyConstraints2D.FreezePositionX;
+		} else {
+			if(status == PlayerStatus.Shot)
+				an.SetTrigger ("toSmall");
+			transform.localScale = new Vector2 (1.6f,1f);
+			status = PlayerStatus.Small;
+		}
 	}
 
 	private void Flip()
@@ -99,10 +117,10 @@ public class PlayerScript : MonoBehaviour {
 		if (coll.gameObject.tag == "Barrier") {
 			isBarrier = true;
 		}
-		/*
-		if (coll.gameObject.tag == "bonus") {
-			
-		}*/
+		if (coll.gameObject.tag == "BigBonus") {
+			transform.localScale = new Vector2 (1.8f,1.8f);
+			status = PlayerStatus.Big;
+		}
 	}
 	void OnCollisionExit2D(Collision2D coll)
 	{
@@ -127,5 +145,10 @@ public class PlayerScript : MonoBehaviour {
 
 public enum PlayerState
 {
-	Idle,Run,Jump,GameOver
+	Idle,Sit,Run,Jump,GameOver
+}
+
+public enum PlayerStatus
+{
+	Small,Big,Shot
 }

@@ -11,6 +11,7 @@ public class CameraFollowPlayer : MonoBehaviour {
 		float x = Camera.main.ViewportToWorldPoint (new Vector2 (0,0)).x;
 		if(Player.transform.position.x<=x+0.3f) 
 			Player.transform.position = new Vector3 (x+0.3f,Player.transform.position.y);
+		
 		x = Camera.main.ViewportToWorldPoint (new Vector2 (1,0)).x;
 		cameraEdge.transform.position = new Vector3 (x,cameraEdge.transform.position.y);
 	}
