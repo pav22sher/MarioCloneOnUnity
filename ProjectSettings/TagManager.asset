@@ -29,7 +29,7 @@ TagManager:
   - EnemyBulletLayer
   - PlayerNoActiveLayer
   - PlayerBulletLayer
-  - 
+  - DestroyObj
   - 
   - 
   - 

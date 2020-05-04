@@ -101,7 +101,7 @@ public class PlayerScript : MonoBehaviour {
 				MoveLogic ();
 			}
 			l_reload_time -= Time.deltaTime;
-			if(Input.GetKey (Input.GetButton("Fire1")) && status == PlayerStatus.Shot){
+			if(Input.GetButton("Fire1") && status == PlayerStatus.Shot){
 				if (l_reload_time < 0) {
 					float sign = sr.flipX ? -1 : 1;
 					Vector2 position = new Vector2 (transform.position.x+sign*0.24f,transform.position.y+0.32f);
