@@ -1,0 +1,59 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!78 &1
+TagManager:
+  serializedVersion: 2
+  tags:
+  - Ground
+  - Crash
+  - Barrier
+  - Enemy
+  - bonus
+  - Box
+  - lakitu
+  layers:
+  - Default
+  - TransparentFX
+  - Ignore Raycast
+  - 
+  - Water
+  - UI
+  - 
+  - 
+  - PlayerLayer
+  - EnemyLayer
+  - BonusLayer
+  - EnemyBulletLayer
+  - PlayerNoActiveLayer
+  - PlayerBulletLayer
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  m_SortingLayers:
+  - name: Default
+    uniqueID: 0
+    locked: 0
+  - name: BackLayer
+    uniqueID: 208800273
+    locked: 0
+  - name: MiddleLayer
+    uniqueID: 2817234657
+    locked: 0
+  - name: FrontLayer
+    uniqueID: 2703845723
+    locked: 0
