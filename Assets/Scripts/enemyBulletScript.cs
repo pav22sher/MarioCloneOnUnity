@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class enemyBulletScript : MonoBehaviour {
+	public Transform score;
+
 	public float speed = 3f;
 	private Rigidbody2D rb;
 	private BoxCollider2D cd;
@@ -34,6 +36,9 @@ public class enemyBulletScript : MonoBehaviour {
 		if (coll.gameObject.name == "Player"){
 			Rigidbody2D player_rb = coll.gameObject.GetComponent <Rigidbody2D> ();
 			if (player_rb.velocity.y < 0) {
+				Vector2 position = new Vector2 (coll.transform.position.x, coll.transform.position.y + 2f);
+				showScore (position);
+
 				float reboundForce=coll.gameObject.GetComponent <PlayerScript> ().jumpForce/2;
 				player_rb.AddForce (Vector2.up * reboundForce, ForceMode2D.Impulse);
 				sr.sortingLayerName = "FrontLayer";
@@ -45,5 +50,13 @@ public class enemyBulletScript : MonoBehaviour {
 				coll.gameObject.GetComponent<PlayerScript> ().isGameOver=true;
 			}
 		}
+	}
+	private void showScore(Vector2 position){
+		Transform trans = Instantiate (score, position, Quaternion.identity);
+		trans.gameObject.GetComponentInChildren<MeshRenderer> ().sortingLayerName = "FrontLayer";
+		trans.gameObject.GetComponentInChildren<MeshRenderer> ().sortingOrder = 100;
+		trans.gameObject.GetComponentInChildren<TextMesh> ().text = "200";
+		GameObject.Find ("StatusBar").GetComponent<StatusBarScript> ().iliarioInt+=200;
+		Destroy (trans.gameObject, 0.5f);
 	}
 }

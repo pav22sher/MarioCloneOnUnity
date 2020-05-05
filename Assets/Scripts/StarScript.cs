@@ -5,6 +5,9 @@ using UnityEngine;
 public class StarScript : MonoBehaviour {
 	public float speed = 2f;
 	public float jumpForce = 4f;
+
+	public Transform score;
+
 	private Rigidbody2D rb;
 	private SpriteRenderer sr;
 
@@ -23,6 +26,9 @@ public class StarScript : MonoBehaviour {
 			rb.AddForce (transform.up * jumpForce, ForceMode2D.Impulse);
 		}
 		if (coll.gameObject.name.Equals("Player")) {
+			Vector2 position = new Vector2 (coll.transform.position.x, coll.transform.position.y + 2f);
+			showScore (position);
+
 			coll.gameObject.GetComponent<Animator> ().SetTrigger ("toUnkill");
 			coll.gameObject.GetComponent<PlayerScript> ().isUnKill = true;
 			Destroy (gameObject);
@@ -31,5 +37,14 @@ public class StarScript : MonoBehaviour {
 			speed = -speed;
 			sr.flipX = !sr.flipX;
 		}
+	}
+
+	private void showScore(Vector2 position){
+		Transform trans = Instantiate (score, position, Quaternion.identity);
+		trans.gameObject.GetComponentInChildren<MeshRenderer> ().sortingLayerName = "FrontLayer";
+		trans.gameObject.GetComponentInChildren<MeshRenderer> ().sortingOrder = 100;
+		trans.gameObject.GetComponentInChildren<TextMesh> ().text="1000";
+		GameObject.Find ("StatusBar").GetComponent<StatusBarScript>().iliarioInt+=1000;
+		Destroy (trans.gameObject, 0.5f);
 	}
 }

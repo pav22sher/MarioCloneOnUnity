@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class BuzzyScript : Enemy {
 
+	public Transform score;
+
 	public bool isKiller;
 	public float AliveTime = 6f;
 
@@ -80,8 +82,18 @@ public class BuzzyScript : Enemy {
 				if (rb.velocity.x != 0) {
 					currentSpeed = Mathf.Sign (rb.velocity.x) * -speed;
 				}
+				Vector2 position = new Vector2 (coll.transform.position.x, coll.transform.position.y + 2f);
+				showScore (position,500);
 			} 
 		} else if (isKiller && coll.gameObject.tag == "Enemy") {
+			Vector2 position = new Vector2 (coll.transform.position.x, coll.transform.position.y + 2f);
+			int scoreInt = 0;
+			if (coll.gameObject.name.StartsWith ("goomba")) {
+				scoreInt = 100;
+			} else {
+				scoreInt = 200;
+			}
+			showScore (position,scoreInt);
 
 			Collider2D cd1 = coll.gameObject.GetComponent<CapsuleCollider2D> ();
 			Rigidbody2D rigidbody2D = coll.gameObject.GetComponent<Rigidbody2D> ();
@@ -100,6 +112,15 @@ public class BuzzyScript : Enemy {
 			sr.flipX = !sr.flipX;
 
 		}
+	}
+
+	private void showScore(Vector2 position,int scoreInt){
+		Transform trans = Instantiate (score, position, Quaternion.identity);
+		trans.gameObject.GetComponentInChildren<MeshRenderer> ().sortingLayerName = "FrontLayer";
+		trans.gameObject.GetComponentInChildren<MeshRenderer> ().sortingOrder = 100;
+		trans.gameObject.GetComponentInChildren<TextMesh> ().text=scoreInt.ToString();
+		GameObject.Find ("StatusBar").GetComponent<StatusBarScript>().iliarioInt+=scoreInt;
+		Destroy (trans.gameObject, 0.5f);
 	}
 }
 public enum BuzzyState

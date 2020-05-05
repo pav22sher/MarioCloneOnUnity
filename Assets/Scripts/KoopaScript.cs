@@ -16,6 +16,8 @@ public class KoopaScript : Enemy {
 	private float time;
 	private bool Active;
 
+	public Transform score;
+
 	private KoopaState status
 	{
 		get{return (KoopaState)an.GetInteger ("State");}
@@ -103,6 +105,8 @@ public class KoopaScript : Enemy {
 				if (rb.velocity.x != 0) {
 					currentSpeed = Mathf.Sign (rb.velocity.x) * -speed;
 				}
+				Vector2 position = new Vector2 (coll.transform.position.x, coll.transform.position.y + 2f);
+				showScore (position,400);
 			} 
 		} else if (isKiller && coll.gameObject.tag == "Enemy") {
 
@@ -116,6 +120,15 @@ public class KoopaScript : Enemy {
 			cd1.enabled = false;
 			rigidbody2D.constraints = RigidbodyConstraints2D.FreezePositionX;
 			Destroy (coll.gameObject, 3f);
+
+			Vector2 position = new Vector2 (coll.transform.position.x, coll.transform.position.y + 2f);
+			int scoreInt = 0;
+			if (coll.gameObject.name.StartsWith ("goomba")) {
+				scoreInt = 100;
+			} else {
+				scoreInt = 200;
+			}
+			showScore (position,scoreInt);
 		}
 		else if (coll.gameObject.tag == "Barrier" || coll.gameObject.tag == "Enemy" ){
 
@@ -126,6 +139,15 @@ public class KoopaScript : Enemy {
 		if (coll.gameObject.tag == "Ground" && jump) {
 			rb.AddForce (transform.up * jumpForce, ForceMode2D.Impulse);
 		}
+	}
+
+	private void showScore(Vector2 position,int scoreInt){
+		Transform trans = Instantiate (score, position, Quaternion.identity);
+		trans.gameObject.GetComponentInChildren<MeshRenderer> ().sortingLayerName = "FrontLayer";
+		trans.gameObject.GetComponentInChildren<MeshRenderer> ().sortingOrder = 100;
+		trans.gameObject.GetComponentInChildren<TextMesh> ().text=scoreInt.ToString();
+		GameObject.Find ("StatusBar").GetComponent<StatusBarScript>().iliarioInt+=scoreInt;
+		Destroy (trans.gameObject, 0.5f);
 	}
 }
 

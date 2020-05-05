@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class PlayerScript : MonoBehaviour {
 
+	public Transform score;
 	public bool isBlockAllAction;
 	public bool isGameOver=false;
 	public float speed = 3f;
@@ -138,6 +139,9 @@ public class PlayerScript : MonoBehaviour {
 			}
 			cd.enabled = false;
 			rb.constraints = RigidbodyConstraints2D.FreezePositionX;
+			GameObject.Find ("StatusBar").GetComponent<StatusBarScript>().lives--;
+			isBlockAllAction = true;
+
 		} else {
 			if(status == PlayerStatus.Shot)
 				an.SetTrigger ("toSmall");
@@ -170,8 +174,27 @@ public class PlayerScript : MonoBehaviour {
 			cd1.enabled = false;
 			rigidbody2D.constraints = RigidbodyConstraints2D.FreezePositionX;
 			Destroy (coll.gameObject, 3f);
+
+			Vector2 position = new Vector2 (coll.transform.position.x, coll.transform.position.y + 2f);
+			int scoreInt = 0;
+			if (coll.gameObject.name.StartsWith ("goomba")) {
+				scoreInt = 100;
+			} else {
+				scoreInt = 200;
+			}
+			showScore (position,scoreInt);
 		}
 	}
+
+	private void showScore(Vector2 position,int scoreInt){
+		Transform trans = Instantiate (score, position, Quaternion.identity);
+		trans.gameObject.GetComponentInChildren<MeshRenderer> ().sortingLayerName = "FrontLayer";
+		trans.gameObject.GetComponentInChildren<MeshRenderer> ().sortingOrder = 100;
+		trans.gameObject.GetComponentInChildren<TextMesh> ().text=scoreInt.ToString();
+		GameObject.Find ("StatusBar").GetComponent<StatusBarScript>().iliarioInt+=scoreInt;
+		Destroy (trans.gameObject, 0.5f);
+	}
+
 	void OnCollisionExit2D(Collision2D coll)
 	{
 		if (coll.gameObject.tag == "Barrier") {

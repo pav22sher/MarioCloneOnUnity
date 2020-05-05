@@ -83,7 +83,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1584806143115884}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 118.49498, y: 2.0967932, z: 0.08478349}
+  m_LocalPosition: {x: 46.264328, y: 3.8016052, z: 0.08478349}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4772078601570908}
@@ -98,7 +98,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1496364353478750}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -14.2, y: 2.2656717, z: -0.002049692}
+  m_LocalPosition: {x: -19.37, y: -4.38, z: -0.002049692}
   m_LocalScale: {x: 2, y: 2, z: 1}
   m_Children: []
   m_Father: {fileID: 4345800956991756}
@@ -196,6 +196,7 @@ MonoBehaviour:
   move: 0
   player: {fileID: 0}
   enemy: {fileID: 4053953711097384, guid: f4b3eb4234f087443929a21635593f9f, type: 2}
+  score: {fileID: 4272715598168804, guid: 897542c1e38a8a04d83e77cc0dbfdbf2, type: 2}
   reloadTime: 4
   isFinish: 0
 --- !u!114 &114906011273569756

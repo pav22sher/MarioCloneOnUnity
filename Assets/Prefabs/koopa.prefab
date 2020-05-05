@@ -116,6 +116,7 @@ MonoBehaviour:
   fly: 0
   flySpeed: 1
   AliveTime: 6
+  score: {fileID: 4272715598168804, guid: 897542c1e38a8a04d83e77cc0dbfdbf2, type: 2}
 --- !u!212 &212036782309171508
 SpriteRenderer:
   m_ObjectHideFlags: 1

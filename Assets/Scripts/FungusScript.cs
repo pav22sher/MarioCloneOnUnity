@@ -5,6 +5,8 @@ using UnityEngine;
 public class FungusScript : MonoBehaviour {
 
 	public float speed = 2f;
+	public Transform score;
+
 	private Rigidbody2D rb;
 	private SpriteRenderer sr;
 
@@ -20,13 +22,32 @@ public class FungusScript : MonoBehaviour {
 	void OnCollisionEnter2D(Collision2D coll)
 	{
 		if (coll.gameObject.name.Equals("Player")) {
-			coll.transform.localScale = new Vector2 (1.8f,1.8f);
-			coll.gameObject.GetComponent<PlayerScript>().status = PlayerStatus.Big;
+			Vector2 position = new Vector2 (coll.transform.position.x, coll.transform.position.y + 2f);
+			showScore (position);
+
+			if (gameObject.name.StartsWith ("fungus2Bonus")) {
+				coll.transform.localScale = new Vector2 (1.8f, 1.8f);
+				coll.gameObject.GetComponent<PlayerScript> ().status = PlayerStatus.Big;
+			}
 			Destroy (gameObject);
 		}
 		if (coll.gameObject.tag.Equals("Barrier")) {
 			speed = -speed;
 			sr.flipX = !sr.flipX;
 		}
+	}
+
+	private void showScore(Vector2 position){
+		Transform trans = Instantiate (score, position, Quaternion.identity);
+		trans.gameObject.GetComponentInChildren<MeshRenderer> ().sortingLayerName = "FrontLayer";
+		trans.gameObject.GetComponentInChildren<MeshRenderer> ().sortingOrder = 100;
+		if (gameObject.name.StartsWith ("fungus2Bonus")) {
+			trans.gameObject.GetComponentInChildren<TextMesh> ().text = "1000";
+			GameObject.Find ("StatusBar").GetComponent<StatusBarScript> ().iliarioInt += 1000;
+		} else {
+			trans.gameObject.GetComponentInChildren<TextMesh> ().text = "1Up";
+			GameObject.Find ("StatusBar").GetComponent<StatusBarScript> ().lives++;
+		}
+		Destroy (trans.gameObject, 0.5f);
 	}
 }

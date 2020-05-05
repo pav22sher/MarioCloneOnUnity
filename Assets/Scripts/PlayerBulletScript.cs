@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class PlayerBulletScript : MonoBehaviour {
 
+	public Transform score;
+
 	public float speed = 4f;
 	public float jumpForce = 4f;
 	private Rigidbody2D rb;
@@ -38,6 +40,7 @@ public class PlayerBulletScript : MonoBehaviour {
 			Destroy (gameObject, 0.2f);
 		}
 		if (coll.gameObject.tag.Equals("Enemy") && !coll.gameObject.name.StartsWith("buzzy")) {
+			
 			Collider2D cd1 = coll.gameObject.GetComponent<CapsuleCollider2D> ();
 			Rigidbody2D rigidbody2D = coll.gameObject.GetComponent<Rigidbody2D> ();
 			SpriteRenderer sp1 = coll.gameObject.GetComponent<SpriteRenderer> ();
@@ -48,6 +51,24 @@ public class PlayerBulletScript : MonoBehaviour {
 			cd1.enabled = false;
 			rigidbody2D.constraints = RigidbodyConstraints2D.FreezePositionX;
 			Destroy (coll.gameObject, 3f);
+
+			Vector2 position = new Vector2 (coll.transform.position.x, coll.transform.position.y + 2f);
+			int scoreInt = 0;
+			if (coll.gameObject.name.StartsWith ("goomba")) {
+				scoreInt = 100;
+			} else {
+				scoreInt = 200;
+			}
+			showScore (position,scoreInt);
 		}
+	}
+
+	private void showScore(Vector2 position,int scoreInt){
+		Transform trans = Instantiate (score, position, Quaternion.identity);
+		trans.gameObject.GetComponentInChildren<MeshRenderer> ().sortingLayerName = "FrontLayer";
+		trans.gameObject.GetComponentInChildren<MeshRenderer> ().sortingOrder = 100;
+		trans.gameObject.GetComponentInChildren<TextMesh> ().text=scoreInt.ToString();
+		GameObject.Find ("StatusBar").GetComponent<StatusBarScript>().iliarioInt+=scoreInt;
+		Destroy (trans.gameObject, 0.5f);
 	}
 }
