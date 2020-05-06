@@ -39,6 +39,8 @@ public class enemyBulletScript : MonoBehaviour {
 				Vector2 position = new Vector2 (coll.transform.position.x, coll.transform.position.y + 2f);
 				showScore (position);
 
+				SoundEffectsHelper.Instance.Make_down_goomba_koopa_Sound ();
+
 				float reboundForce=coll.gameObject.GetComponent <PlayerScript> ().jumpForce/2;
 				player_rb.AddForce (Vector2.up * reboundForce, ForceMode2D.Impulse);
 				sr.sortingLayerName = "FrontLayer";

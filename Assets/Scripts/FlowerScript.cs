@@ -11,6 +11,8 @@ public class FlowerScript : MonoBehaviour {
 			Vector2 position = new Vector2 (coll.transform.position.x, coll.transform.position.y + 2f);
 			showScore (position);
 
+			SoundEffectsHelper.Instance.Make_transformation_Sound ();
+
 			if (coll.gameObject.GetComponent<PlayerScript>().status == PlayerStatus.Small) {
 				coll.transform.localScale = new Vector2 (1.8f, 1.8f);
 				coll.gameObject.GetComponent<PlayerScript>().status = PlayerStatus.Big;

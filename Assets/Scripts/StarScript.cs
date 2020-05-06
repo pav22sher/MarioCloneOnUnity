@@ -29,8 +29,11 @@ public class StarScript : MonoBehaviour {
 			Vector2 position = new Vector2 (coll.transform.position.x, coll.transform.position.y + 2f);
 			showScore (position);
 
+			SoundEffectsHelper.Instance.Make_transformation_Sound ();
+
 			coll.gameObject.GetComponent<Animator> ().SetTrigger ("toUnkill");
 			coll.gameObject.GetComponent<PlayerScript> ().isUnKill = true;
+			GameObject.Find ("Main Camera").GetComponent<MusicScript> ().Make_star_Music ();
 			Destroy (gameObject);
 		}
 		if (coll.gameObject.tag.Equals("Barrier")) {

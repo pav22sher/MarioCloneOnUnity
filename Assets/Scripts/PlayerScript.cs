@@ -70,6 +70,7 @@ public class PlayerScript : MonoBehaviour {
 				if (l_unkill_time <= 0) {
 					l_unkill_time = unkillTime;
 					isUnKill = false;
+					GameObject.Find ("Main Camera").GetComponent<MusicScript> ().Make_level_1_Music ();
 					if (status == PlayerStatus.Shot) {
 						an.SetTrigger ("toShot");
 					} else {
@@ -112,6 +113,8 @@ public class PlayerScript : MonoBehaviour {
 						obj.GetComponent<SpriteRenderer> ().flipX = sr.flipX;
 						obj.GetComponent<PlayerBulletScript> ().speed = sign * obj.GetComponent<PlayerBulletScript> ().speed;
 						l_reload_time = reloadTime;
+
+						SoundEffectsHelper.Instance.Make_fireball_shot_Sound ();
 					}
 				}
 			}
@@ -127,7 +130,12 @@ public class PlayerScript : MonoBehaviour {
 
 	private void JumpLogic()
 	{
-			rb.AddForce (transform.up * jumpForce, ForceMode2D.Impulse);
+		rb.AddForce (transform.up * jumpForce, ForceMode2D.Impulse);
+		if (status == PlayerStatus.Small) {
+			SoundEffectsHelper.Instance.Make_jump_small_Sound ();
+		} else {
+			SoundEffectsHelper.Instance.Make_jump_big_Sound ();
+		}
 	}
 
 	private void GameOverLogic()
@@ -140,9 +148,11 @@ public class PlayerScript : MonoBehaviour {
 			cd.enabled = false;
 			rb.constraints = RigidbodyConstraints2D.FreezePositionX;
 			GameObject.Find ("StatusBar").GetComponent<StatusBarScript>().lives--;
+			GameObject.Find ("Main Camera").GetComponent<MusicScript> ().Make_minus_life_Music ();
 			isBlockAllAction = true;
 
 		} else {
+			SoundEffectsHelper.Instance.Make_transformation_Sound ();
 			if(status == PlayerStatus.Shot)
 				an.SetTrigger ("toSmall");
 			transform.localScale = new Vector2 (1.6f,1f);
@@ -183,6 +193,8 @@ public class PlayerScript : MonoBehaviour {
 				scoreInt = 200;
 			}
 			showScore (position,scoreInt);
+
+			SoundEffectsHelper.Instance.Make_fireball_kill_Sound ();
 		}
 	}
 

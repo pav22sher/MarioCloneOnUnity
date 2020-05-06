@@ -18,8 +18,12 @@ public class brickBoxScript : MonoBehaviour {
 					Vector2 position = new Vector2 (c.transform.position.x, c.transform.position.y + 2f);
 					showScore (position);
 
+					SoundEffectsHelper.Instance.Make_brick_big_Sound ();
+
 					Instantiate (particals, transform.position, Quaternion.identity);
 					Destroy (transform.parent.gameObject, 0.1f);
+				} else {
+					SoundEffectsHelper.Instance.Make_brick_small_Sound ();
 				}
 			}
 		}

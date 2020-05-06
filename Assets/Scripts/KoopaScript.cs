@@ -107,6 +107,7 @@ public class KoopaScript : Enemy {
 				}
 				Vector2 position = new Vector2 (coll.transform.position.x, coll.transform.position.y + 2f);
 				showScore (position,400);
+				SoundEffectsHelper.Instance.Make_koopa_touch_Sound ();
 			} 
 		} else if (isKiller && coll.gameObject.tag == "Enemy") {
 
@@ -129,6 +130,8 @@ public class KoopaScript : Enemy {
 				scoreInt = 200;
 			}
 			showScore (position,scoreInt);
+
+			SoundEffectsHelper.Instance.Make_fireball_kill_Sound ();
 		}
 		else if (coll.gameObject.tag == "Barrier" || coll.gameObject.tag == "Enemy" ){
 
@@ -138,6 +141,10 @@ public class KoopaScript : Enemy {
 		}
 		if (coll.gameObject.tag == "Ground" && jump) {
 			rb.AddForce (transform.up * jumpForce, ForceMode2D.Impulse);
+		}
+
+		if (coll.gameObject.tag == "Barrier" && status==KoopaState.Stand && move) {
+			SoundEffectsHelper.Instance.Make_koopa_bump_Sound ();
 		}
 	}
 

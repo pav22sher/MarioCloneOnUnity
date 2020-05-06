@@ -84,6 +84,7 @@ public class BuzzyScript : Enemy {
 				}
 				Vector2 position = new Vector2 (coll.transform.position.x, coll.transform.position.y + 2f);
 				showScore (position,500);
+				SoundEffectsHelper.Instance.Make_koopa_touch_Sound ();
 			} 
 		} else if (isKiller && coll.gameObject.tag == "Enemy") {
 			Vector2 position = new Vector2 (coll.transform.position.x, coll.transform.position.y + 2f);
@@ -94,6 +95,8 @@ public class BuzzyScript : Enemy {
 				scoreInt = 200;
 			}
 			showScore (position,scoreInt);
+
+			SoundEffectsHelper.Instance.Make_fireball_kill_Sound ();
 
 			Collider2D cd1 = coll.gameObject.GetComponent<CapsuleCollider2D> ();
 			Rigidbody2D rigidbody2D = coll.gameObject.GetComponent<Rigidbody2D> ();
@@ -107,10 +110,11 @@ public class BuzzyScript : Enemy {
 			Destroy (coll.gameObject, 3f);
 		}
 		else if (coll.gameObject.tag == "Barrier" || coll.gameObject.tag == "Enemy" ){
-
 			currentSpeed = -currentSpeed;
 			sr.flipX = !sr.flipX;
-
+		}
+		if (coll.gameObject.tag == "Barrier" && status==BuzzyState.Stand && move) {
+			SoundEffectsHelper.Instance.Make_koopa_bump_Sound ();
 		}
 	}
 

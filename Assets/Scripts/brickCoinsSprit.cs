@@ -21,6 +21,8 @@ public class brickCoinsSprit : MonoBehaviour {
 					transform.parent.GetComponent<Animator> ().SetTrigger ("isStop");
 					canDo = false;
 				}
+
+				SoundEffectsHelper.Instance.Make_coins_Sound();
 			}
 		}
 	}

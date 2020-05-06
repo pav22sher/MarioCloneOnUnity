@@ -26,6 +26,8 @@ public class GunScript : MonoBehaviour {
 			}
 			Invoke ("show", 0.2f);
 			time = reloadTime+Random.Range(0.0f,1f);
+
+			SoundEffectsHelper.Instance.Make_koopa_bump_Sound ();
 		}
 	}
 	private void show()

@@ -38,6 +38,11 @@ public class PlayerBulletScript : MonoBehaviour {
 			an.SetTrigger ("stop");
 			rb.constraints = RigidbodyConstraints2D.FreezePosition;
 			Destroy (gameObject, 0.2f);
+			if (coll.gameObject.tag.Equals ("Barrier")) {
+				SoundEffectsHelper.Instance.Make_fireball_bang_Sound ();
+			} else {
+				SoundEffectsHelper.Instance.Make_fireball_kill_Sound ();
+			}
 		}
 		if (coll.gameObject.tag.Equals("Enemy") && !coll.gameObject.name.StartsWith("buzzy")) {
 			

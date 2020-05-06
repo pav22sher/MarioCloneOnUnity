@@ -31,6 +31,8 @@ public class BoxKillEnemyScript : MonoBehaviour {
 			}
 			showScore (position,scoreInt);
 
+			SoundEffectsHelper.Instance.Make_fireball_kill_Sound ();
+
 			Collider2D cd1 = coll.gameObject.GetComponent<CapsuleCollider2D> ();
 			Rigidbody2D rigidbody2D = coll.gameObject.GetComponent<Rigidbody2D> ();
 			SpriteRenderer sp1 = coll.gameObject.GetComponent<SpriteRenderer> ();

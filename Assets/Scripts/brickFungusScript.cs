@@ -13,6 +13,8 @@ public class brickFungusScript : MonoBehaviour {
 		if (c.gameObject.name == "Player" && 
 			c.gameObject.GetComponent<Rigidbody2D>().velocity.y>0
 			&& !make) {
+			SoundEffectsHelper.Instance.Make_show_bonus_Sound ();
+
 			transform.parent.GetComponent<Animator> ().SetTrigger ("isActive");
 			Invoke ("createBonus", 0.5f);
 			make = true;

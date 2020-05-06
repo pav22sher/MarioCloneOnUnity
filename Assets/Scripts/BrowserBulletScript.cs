@@ -13,6 +13,7 @@ public class BrowserBulletScript : MonoBehaviour {
 		rb = GetComponent<Rigidbody2D> ();
 		sr = GetComponent<SpriteRenderer> ();
 	}
+
 	void Update()
 	{
 		if (speed >= 0) {

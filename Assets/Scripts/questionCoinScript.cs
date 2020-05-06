@@ -14,6 +14,8 @@ public class questionCoinScript : MonoBehaviour {
 				Vector2 position = new Vector2 (c.transform.position.x, c.transform.position.y + 2f);
 				showScore (position);
 
+				SoundEffectsHelper.Instance.Make_coins_Sound ();
+
 				transform.parent.GetComponent<Animator> ().SetTrigger ("isActive");
 				canDo = false;
 			}

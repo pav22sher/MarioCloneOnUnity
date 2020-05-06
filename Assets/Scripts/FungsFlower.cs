@@ -18,6 +18,9 @@ public class FungsFlower : MonoBehaviour {
 				transform.parent.GetComponent<Animator> ().SetTrigger ("isFungs");
 				Invoke ("createBonus", 0.5f);
 			}
+
+			SoundEffectsHelper.Instance.Make_show_bonus_Sound ();
+
 			make = true;
 		}
 	}

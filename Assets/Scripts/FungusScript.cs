@@ -26,6 +26,7 @@ public class FungusScript : MonoBehaviour {
 			showScore (position);
 
 			if (gameObject.name.StartsWith ("fungus2Bonus")) {
+				SoundEffectsHelper.Instance.Make_transformation_Sound ();
 				coll.transform.localScale = new Vector2 (1.8f, 1.8f);
 				coll.gameObject.GetComponent<PlayerScript> ().status = PlayerStatus.Big;
 			}
@@ -45,6 +46,7 @@ public class FungusScript : MonoBehaviour {
 			trans.gameObject.GetComponentInChildren<TextMesh> ().text = "1000";
 			GameObject.Find ("StatusBar").GetComponent<StatusBarScript> ().iliarioInt += 1000;
 		} else {
+			SoundEffectsHelper.Instance.Make_life_plus_Sound ();
 			trans.gameObject.GetComponentInChildren<TextMesh> ().text = "1Up";
 			GameObject.Find ("StatusBar").GetComponent<StatusBarScript> ().lives++;
 		}

@@ -43,6 +43,7 @@ public class BowserScript : MonoBehaviour {
 			an.SetTrigger ("Shot");
 			Invoke ("Shot",0.15f);
 			time1 = reloadTime+Random.Range(0.0f,1f);
+			SoundEffectsHelper.Instance.Make_bowser_fire_Sound();
 		}
 		time2 -= Time.deltaTime;
 		if (time2 < 0) {

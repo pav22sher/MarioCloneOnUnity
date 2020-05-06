@@ -9,6 +9,8 @@ public class LifeBoxActive : MonoBehaviour {
 		if (col.gameObject.name == "Player" && 
 			col.gameObject.GetComponent<Rigidbody2D>().velocity.y>0) {
 			obj.SetActive (true);
+
+			SoundEffectsHelper.Instance.Make_show_bonus_Sound ();
 		}
 	}
 }
