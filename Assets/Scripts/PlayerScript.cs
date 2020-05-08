@@ -1,10 +1,13 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerScript : MonoBehaviour {
 
+	public Transform info;
 	public Transform score;
+
 	public bool isBlockAllAction;
 	public bool isGameOver=false;
 	public float speed = 3f;
@@ -45,11 +48,24 @@ public class PlayerScript : MonoBehaviour {
 		l_noactive_time = noactiveTime;
 		l_reload_time = reloadTime;
 		l_unkill_time = unkillTime;
-		status = PlayerStatus.Small;
+		status = gameInfo.status;
+		if (status == PlayerStatus.Small) {
+			transform.localScale = new Vector2 (1.6f,1f);
+			if (status == PlayerStatus.Shot) {
+				an.SetTrigger ("toSmall");
+			}
+		} else {
+			transform.localScale = new Vector2 (1.8f, 1.8f);
+			if (status == PlayerStatus.Shot) {
+				an.SetTrigger ("toShot");
+			}
+		}
+		state = PlayerState.Idle;
 	}
 
 	void Update()
 	{
+		gameInfo.status=status;
 		if (!isBlockAllAction) {
 			if (isNoActive) {
 				Color color = Color.white;
@@ -150,7 +166,12 @@ public class PlayerScript : MonoBehaviour {
 			GameObject.Find ("StatusBar").GetComponent<StatusBarScript>().lives--;
 			GameObject.Find ("Main Camera").GetComponent<MusicScript> ().Make_minus_life_Music ();
 			isBlockAllAction = true;
-
+			StatusBarScript sbs = GameObject.Find ("StatusBar").GetComponent<StatusBarScript> ();
+			if(sbs.lives!=0){
+				Invoke ("reloadScene", 4f);
+			}else{
+				Invoke ("game_over", 4f);
+			}
 		} else {
 			SoundEffectsHelper.Instance.Make_transformation_Sound ();
 			if(status == PlayerStatus.Shot)
@@ -159,6 +180,17 @@ public class PlayerScript : MonoBehaviour {
 			status = PlayerStatus.Small;
 			isNoActive = true;
 		}
+	}
+
+	private void reloadScene()
+	{
+		SceneManager.LoadScene (0);
+	}
+
+	private void game_over()
+	{
+		info.gameObject.SetActive (true);
+		Invoke ("reloadScene", 4f);
 	}
 
 	private void Flip()
