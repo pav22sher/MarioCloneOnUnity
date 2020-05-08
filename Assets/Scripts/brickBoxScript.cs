@@ -34,7 +34,7 @@ public class brickBoxScript : MonoBehaviour {
 		trans.gameObject.GetComponentInChildren<MeshRenderer> ().sortingLayerName = "FrontLayer";
 		trans.gameObject.GetComponentInChildren<MeshRenderer> ().sortingOrder = 100;
 		trans.gameObject.GetComponentInChildren<TextMesh> ().text="50";
-		GameObject.Find ("StatusBar").GetComponent<StatusBarScript>().iliarioInt+=50;
+		gameInfo.iliario_score+=50;
 		Destroy (trans.gameObject, 0.5f);
 	}
 }

@@ -44,6 +44,17 @@ public class PlayerBulletScript : MonoBehaviour {
 				SoundEffectsHelper.Instance.Make_fireball_kill_Sound ();
 			}
 		}
+		if (coll.gameObject.tag.Equals("piranha")) {
+			cd.enabled = false;
+			an.SetTrigger ("stop");
+			rb.constraints = RigidbodyConstraints2D.FreezePosition;
+			SoundEffectsHelper.Instance.Make_fireball_kill_Sound ();
+
+			Vector2 position = new Vector2 (coll.transform.position.x, coll.transform.position.y + 2f);
+			Destroy (coll.gameObject,0.2f);
+			Destroy (gameObject, 0.2f);
+			showScore (position,200);
+		}
 		if (coll.gameObject.tag.Equals("Enemy") && !coll.gameObject.name.StartsWith("buzzy")) {
 			
 			Collider2D cd1 = coll.gameObject.GetComponent<CapsuleCollider2D> ();
@@ -73,7 +84,7 @@ public class PlayerBulletScript : MonoBehaviour {
 		trans.gameObject.GetComponentInChildren<MeshRenderer> ().sortingLayerName = "FrontLayer";
 		trans.gameObject.GetComponentInChildren<MeshRenderer> ().sortingOrder = 100;
 		trans.gameObject.GetComponentInChildren<TextMesh> ().text=scoreInt.ToString();
-		GameObject.Find ("StatusBar").GetComponent<StatusBarScript>().iliarioInt+=scoreInt;
+		gameInfo.iliario_score+=scoreInt;
 		Destroy (trans.gameObject, 0.5f);
 	}
 }

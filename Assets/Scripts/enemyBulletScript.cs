@@ -58,7 +58,7 @@ public class enemyBulletScript : MonoBehaviour {
 		trans.gameObject.GetComponentInChildren<MeshRenderer> ().sortingLayerName = "FrontLayer";
 		trans.gameObject.GetComponentInChildren<MeshRenderer> ().sortingOrder = 100;
 		trans.gameObject.GetComponentInChildren<TextMesh> ().text = "200";
-		GameObject.Find ("StatusBar").GetComponent<StatusBarScript> ().iliarioInt+=200;
+		gameInfo.iliario_score+=200;
 		Destroy (trans.gameObject, 0.5f);
 	}
 }

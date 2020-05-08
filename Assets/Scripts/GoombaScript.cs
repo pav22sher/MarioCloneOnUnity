@@ -49,7 +49,7 @@ public class GoombaScript : Enemy {
 		trans.gameObject.GetComponentInChildren<MeshRenderer> ().sortingLayerName = "FrontLayer";
 		trans.gameObject.GetComponentInChildren<MeshRenderer> ().sortingOrder = 100;
 		trans.gameObject.GetComponentInChildren<TextMesh> ().text = "100";
-		GameObject.Find ("StatusBar").GetComponent<StatusBarScript> ().iliarioInt+=100;
+		gameInfo.iliario_score+=100;
 		Destroy (trans.gameObject, 0.5f);
 	}
 }

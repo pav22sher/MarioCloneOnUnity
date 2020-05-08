@@ -5,8 +5,11 @@ using UnityEngine.SceneManagement;
 
 public class PlayerScript : MonoBehaviour {
 
-	public Transform info;
+	public Transform start_info;
+	public Transform end_info;
 	public Transform score;
+	public int SceneNum=0;
+	public Vector3 start_pos = new Vector3 (-5, 0, 0);
 
 	public bool isBlockAllAction;
 	public bool isGameOver=false;
@@ -40,7 +43,7 @@ public class PlayerScript : MonoBehaviour {
 		set{an.SetInteger("State",(int)value);}
 	}
 
-	void Awake () {
+	void Start () {
 		rb = GetComponent<Rigidbody2D> ();
 		sr = GetComponent<SpriteRenderer> ();
 		an = GetComponent<Animator> ();
@@ -49,23 +52,25 @@ public class PlayerScript : MonoBehaviour {
 		l_reload_time = reloadTime;
 		l_unkill_time = unkillTime;
 		status = gameInfo.status;
-		if (status == PlayerStatus.Small) {
-			transform.localScale = new Vector2 (1.6f,1f);
-			if (status == PlayerStatus.Shot) {
-				an.SetTrigger ("toSmall");
-			}
-		} else {
+		if (status != PlayerStatus.Small) {
 			transform.localScale = new Vector2 (1.8f, 1.8f);
-			if (status == PlayerStatus.Shot) {
+			if(status == PlayerStatus.Shot){
 				an.SetTrigger ("toShot");
 			}
+		} else {
+			an.SetTrigger ("toSmall");
+			transform.localScale = new Vector2 (1.6f, 1f);
 		}
-		state = PlayerState.Idle;
+
+		transform.position = gameInfo.position;
+		if(gameInfo.is_level_start){
+			start_info.gameObject.SetActive (true);
+		}
+
 	}
 
 	void Update()
 	{
-		gameInfo.status=status;
 		if (!isBlockAllAction) {
 			if (isNoActive) {
 				Color color = Color.white;
@@ -105,7 +110,7 @@ public class PlayerScript : MonoBehaviour {
 					if (Mathf.Abs (rb.velocity.x) > 0 && !isBarrier) {
 						state = PlayerState.Run;
 					} else {
-						if (Input.GetKey (KeyCode.RightShift) && status != PlayerStatus.Small) {
+						if ((Input.GetKey (KeyCode.DownArrow)||Input.GetKey (KeyCode.S)) && status != PlayerStatus.Small) {
 							state = PlayerState.Sit;
 						} else {
 							state = PlayerState.Idle;
@@ -163,11 +168,10 @@ public class PlayerScript : MonoBehaviour {
 			}
 			cd.enabled = false;
 			rb.constraints = RigidbodyConstraints2D.FreezePositionX;
-			GameObject.Find ("StatusBar").GetComponent<StatusBarScript>().lives--;
+			gameInfo.life--;
 			GameObject.Find ("Main Camera").GetComponent<MusicScript> ().Make_minus_life_Music ();
 			isBlockAllAction = true;
-			StatusBarScript sbs = GameObject.Find ("StatusBar").GetComponent<StatusBarScript> ();
-			if(sbs.lives!=0){
+			if(gameInfo.life!=0){
 				Invoke ("reloadScene", 4f);
 			}else{
 				Invoke ("game_over", 4f);
@@ -184,13 +188,22 @@ public class PlayerScript : MonoBehaviour {
 
 	private void reloadScene()
 	{
+		gameInfo.position = start_pos;
+		gameInfo.status = PlayerStatus.Small;
+		SceneManager.LoadScene (SceneNum);
+	}
+
+	private void reloadLevel1_1()
+	{
+		gameInfo.toStartLevel1_1 ();
 		SceneManager.LoadScene (0);
 	}
 
 	private void game_over()
 	{
-		info.gameObject.SetActive (true);
-		Invoke ("reloadScene", 4f);
+		GameObject.Find ("StatusBar").GetComponent<StatusBarScript>().StopTimer=true;
+		end_info.gameObject.SetActive (true);
+		Invoke ("reloadLevel1_1", 4f);
 	}
 
 	private void Flip()
@@ -235,7 +248,7 @@ public class PlayerScript : MonoBehaviour {
 		trans.gameObject.GetComponentInChildren<MeshRenderer> ().sortingLayerName = "FrontLayer";
 		trans.gameObject.GetComponentInChildren<MeshRenderer> ().sortingOrder = 100;
 		trans.gameObject.GetComponentInChildren<TextMesh> ().text=scoreInt.ToString();
-		GameObject.Find ("StatusBar").GetComponent<StatusBarScript>().iliarioInt+=scoreInt;
+		gameInfo.iliario_score+=scoreInt;
 		Destroy (trans.gameObject, 0.5f);
 	}
 

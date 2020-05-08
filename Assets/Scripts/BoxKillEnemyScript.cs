@@ -51,7 +51,7 @@ public class BoxKillEnemyScript : MonoBehaviour {
 		trans.gameObject.GetComponentInChildren<MeshRenderer> ().sortingLayerName = "FrontLayer";
 		trans.gameObject.GetComponentInChildren<MeshRenderer> ().sortingOrder = 100;
 		trans.gameObject.GetComponentInChildren<TextMesh> ().text=scoreInt.ToString();
-		GameObject.Find ("StatusBar").GetComponent<StatusBarScript>().iliarioInt+=scoreInt;
+		gameInfo.iliario_score+=scoreInt;
 		Destroy (trans.gameObject, 0.5f);
 	}
 }

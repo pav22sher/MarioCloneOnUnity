@@ -44,11 +44,11 @@ public class FungusScript : MonoBehaviour {
 		trans.gameObject.GetComponentInChildren<MeshRenderer> ().sortingOrder = 100;
 		if (gameObject.name.StartsWith ("fungus2Bonus")) {
 			trans.gameObject.GetComponentInChildren<TextMesh> ().text = "1000";
-			GameObject.Find ("StatusBar").GetComponent<StatusBarScript> ().iliarioInt += 1000;
+			gameInfo.iliario_score+= 1000;
 		} else {
 			SoundEffectsHelper.Instance.Make_life_plus_Sound ();
 			trans.gameObject.GetComponentInChildren<TextMesh> ().text = "1Up";
-			GameObject.Find ("StatusBar").GetComponent<StatusBarScript> ().lives++;
+			gameInfo.life++;
 		}
 		Destroy (trans.gameObject, 0.5f);
 	}

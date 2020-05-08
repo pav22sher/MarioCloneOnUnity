@@ -1,7 +1,8 @@
 fileFormatVersion: 2
 guid: 831905d9656438a49839f535ce90386b
 TextureImporter:
-  fileIDToRecycleName: {}
+  fileIDToRecycleName:
+    21300000: bigCastle_0
   externalObjects: {}
   serializedVersion: 4
   mipmaps:
@@ -107,7 +108,21 @@ TextureImporter:
     androidETC2FallbackOverride: 0
   spriteSheet:
     serializedVersion: 2
-    sprites: []
+    sprites:
+    - serializedVersion: 2
+      name: bigCastle_0
+      rect:
+        serializedVersion: 2
+        x: 11
+        y: 20
+        width: 287
+        height: 378
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
     outline: []
     physicsShape: []
   spritePackingTag: 

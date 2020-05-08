@@ -14,6 +14,7 @@ TagManager:
   - BigBonus
   - ShotBonus
   - UnKillBonus
+  - piranha
   layers:
   - Default
   - TransparentFX
@@ -30,7 +31,7 @@ TagManager:
   - PlayerNoActiveLayer
   - PlayerBulletLayer
   - setNoActiveLayer
-  - 
+  - EnemyFlowerLayer
   - 
   - 
   - 

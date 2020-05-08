@@ -27,8 +27,8 @@ public class questionCoinScript : MonoBehaviour {
 		trans.gameObject.GetComponentInChildren<MeshRenderer> ().sortingLayerName = "FrontLayer";
 		trans.gameObject.GetComponentInChildren<MeshRenderer> ().sortingOrder = 100;
 		trans.gameObject.GetComponentInChildren<TextMesh> ().text="200";
-		GameObject.Find ("StatusBar").GetComponent<StatusBarScript>().iliarioInt+=200;
-		GameObject.Find ("StatusBar").GetComponent<StatusBarScript>().coinInt+=1;
+		gameInfo.iliario_score+=200;
+		gameInfo.coins_count+=1;
 		Destroy (trans.gameObject, 0.5f);
 	}
 }

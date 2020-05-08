@@ -8,24 +8,6 @@ AnimatorController:
   m_Name: Player
   serializedVersion: 5
   m_AnimatorParameters:
-  - m_Name: State
-    m_Type: 3
-    m_DefaultFloat: 0
-    m_DefaultInt: 0
-    m_DefaultBool: 0
-    m_Controller: {fileID: 0}
-  - m_Name: toSmall
-    m_Type: 9
-    m_DefaultFloat: 0
-    m_DefaultInt: 0
-    m_DefaultBool: 0
-    m_Controller: {fileID: 0}
-  - m_Name: toShot
-    m_Type: 9
-    m_DefaultFloat: 0
-    m_DefaultInt: 0
-    m_DefaultBool: 0
-    m_Controller: {fileID: 0}
   - m_Name: toUnkill
     m_Type: 9
     m_DefaultFloat: 0
@@ -51,6 +33,24 @@ AnimatorController:
     m_DefaultBool: 0
     m_Controller: {fileID: 0}
   - m_Name: toShotRun
+    m_Type: 9
+    m_DefaultFloat: 0
+    m_DefaultInt: 0
+    m_DefaultBool: 0
+    m_Controller: {fileID: 0}
+  - m_Name: State
+    m_Type: 3
+    m_DefaultFloat: 0
+    m_DefaultInt: 0
+    m_DefaultBool: 0
+    m_Controller: {fileID: 0}
+  - m_Name: toSmall
+    m_Type: 9
+    m_DefaultFloat: 0
+    m_DefaultInt: 0
+    m_DefaultBool: 0
+    m_Controller: {fileID: 0}
+  - m_Name: toShot
     m_Type: 9
     m_DefaultFloat: 0
     m_DefaultInt: 0
@@ -1633,9 +1633,9 @@ AnimatorStateMachine:
   - {fileID: 1101068352193201978}
   m_EntryTransitions: []
   m_StateMachineTransitions:
-  - first: {fileID: 1107893353465329252}
-    second: []
   - first: {fileID: 1107606738675669254}
+    second: []
+  - first: {fileID: 1107893353465329252}
     second: []
   m_StateMachineBehaviours: []
   m_AnyStatePosition: {x: 288, y: -336, z: 0}
