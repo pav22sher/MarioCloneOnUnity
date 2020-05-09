@@ -116,7 +116,7 @@ public class PlayerScript : MonoBehaviour {
 							state = PlayerState.Idle;
 						}
 					}
-					if (Input.GetButton ("Jump") && rb.velocity.y == 0) {
+					if (Input.GetButtonDown ("Jump")) {
 						JumpLogic ();
 					}
 				} else {

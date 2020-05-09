@@ -15,6 +15,7 @@ TagManager:
   - ShotBonus
   - UnKillBonus
   - piranha
+  - Platform
   layers:
   - Default
   - TransparentFX
