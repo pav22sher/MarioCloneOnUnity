@@ -12,13 +12,13 @@ public class KoopaScript : Enemy {
 	public float flySpeed=1f;
 	public float AliveTime = 6f;
 
-	private float currentSpeed;
+	public float currentSpeed;
 	private float time;
 	private bool Active;
 
 	public Transform score;
 
-	private KoopaState status
+	public KoopaState status
 	{
 		get{return (KoopaState)an.GetInteger ("State");}
 		set{an.SetInteger("State",(int)value);}

@@ -16,6 +16,7 @@ TagManager:
   - UnKillBonus
   - piranha
   - Platform
+  - Coin
   layers:
   - Default
   - TransparentFX
