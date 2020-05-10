@@ -33,6 +33,7 @@ public class KoopaScript : Enemy {
 		}
 		if (fly) {
 			rb.gravityScale = 0;
+			rb.constraints=RigidbodyConstraints2D.FreezePositionX|RigidbodyConstraints2D.FreezeRotation;
 		}
 		currentSpeed = speed;
 		time = AliveTime;
@@ -60,6 +61,7 @@ public class KoopaScript : Enemy {
 		sr.flipX = rb.velocity.x > 0;
 		if (Active) {
 			if (status == KoopaState.Fly) {
+				rb.constraints=RigidbodyConstraints2D.FreezeRotation;
 				fly = false;
 				jump = false;
 				rb.gravityScale = 5;

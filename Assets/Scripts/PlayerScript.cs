@@ -107,7 +107,7 @@ public class PlayerScript : MonoBehaviour {
 				isGameOver = false;
 			} else {
 				if (ground != 0) {
-					if (Mathf.Abs (rb.velocity.x) > 0 && !isBarrier) {
+					if (Input.GetButton ("Horizontal") && !isBarrier) {
 						state = PlayerState.Run;
 					} else {
 						if ((Input.GetKey (KeyCode.DownArrow)||Input.GetKey (KeyCode.S)) && status != PlayerStatus.Small) {
