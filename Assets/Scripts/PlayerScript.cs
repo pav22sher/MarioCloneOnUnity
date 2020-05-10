@@ -228,6 +228,16 @@ public class PlayerScript : MonoBehaviour {
 			coll.transform.position = new Vector2 (coll.transform.position.x, coll.transform.position.y + 0.5f);
 			cd1.enabled = false;
 			rigidbody2D.constraints = RigidbodyConstraints2D.FreezePositionX;
+
+			if (coll.gameObject.name.StartsWith ("koopa")) {
+				KoopaScript ks = coll.gameObject.GetComponent<KoopaScript> ();
+				ks.status = KoopaState.Stand;
+				ks.fly = false;
+				ks.jump = false;
+				Rigidbody2D rb2D = coll.gameObject.GetComponent<Rigidbody2D> ();
+				rb2D.gravityScale = 1;
+			}
+
 			Destroy (coll.gameObject, 3f);
 
 			Vector2 position = new Vector2 (coll.transform.position.x, coll.transform.position.y + 2f);
