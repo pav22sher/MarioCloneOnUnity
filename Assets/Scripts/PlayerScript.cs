@@ -37,7 +37,7 @@ public class PlayerScript : MonoBehaviour {
 	private int ground=0;
 	private bool isBarrier=false;
 
-	private PlayerState state
+	public PlayerState state
 	{
 		get{return (PlayerState)an.GetInteger ("State");}
 		set{an.SetInteger("State",(int)value);}
