@@ -17,6 +17,9 @@ public class SpinyScript : Enemy {
 		if (move) {
 			rb.velocity = new Vector2 (-currentSpeed, rb.velocity.y);
 		}
+		if (transform.position.x < Camera.main.ViewportToWorldPoint (new Vector3 (0, 0)).x + 1f) {
+			Destroy (gameObject);
+		}
 	}
 
 	void  OnCollisionEnter2D(Collision2D coll)
