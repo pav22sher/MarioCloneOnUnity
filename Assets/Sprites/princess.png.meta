@@ -114,8 +114,8 @@ TextureImporter:
       name: princess_0
       rect:
         serializedVersion: 2
-        x: 8
-        y: 5
+        x: 3
+        y: 3
         width: 32
         height: 48
       alignment: 0
@@ -128,10 +128,10 @@ TextureImporter:
       name: princess_1
       rect:
         serializedVersion: 2
-        x: 54
-        y: 5
-        width: 31
-        height: 59
+        x: 52
+        y: 3
+        width: 28
+        height: 48
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}

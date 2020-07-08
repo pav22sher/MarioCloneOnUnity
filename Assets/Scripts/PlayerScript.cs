@@ -258,7 +258,7 @@ public class PlayerScript : MonoBehaviour {
 		trans.gameObject.GetComponentInChildren<MeshRenderer> ().sortingLayerName = "FrontLayer";
 		trans.gameObject.GetComponentInChildren<MeshRenderer> ().sortingOrder = 100;
 		trans.gameObject.GetComponentInChildren<TextMesh> ().text=scoreInt.ToString();
-		gameInfo.iliario_score+=scoreInt;
+		gameInfo.mario_score+=scoreInt;
 		Destroy (trans.gameObject, 0.5f);
 	}
 

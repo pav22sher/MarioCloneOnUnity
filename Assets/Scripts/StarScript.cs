@@ -47,7 +47,7 @@ public class StarScript : MonoBehaviour {
 		trans.gameObject.GetComponentInChildren<MeshRenderer> ().sortingLayerName = "FrontLayer";
 		trans.gameObject.GetComponentInChildren<MeshRenderer> ().sortingOrder = 100;
 		trans.gameObject.GetComponentInChildren<TextMesh> ().text="1000";
-		gameInfo.iliario_score+=1000;
+		gameInfo.mario_score+=1000;
 		Destroy (trans.gameObject, 0.5f);
 	}
 }

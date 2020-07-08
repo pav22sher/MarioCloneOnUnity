@@ -109,7 +109,7 @@ public class LakituScript : Enemy {
 		trans.gameObject.GetComponentInChildren<MeshRenderer> ().sortingLayerName = "FrontLayer";
 		trans.gameObject.GetComponentInChildren<MeshRenderer> ().sortingOrder = 100;
 		trans.gameObject.GetComponentInChildren<TextMesh> ().text = "500";
-		gameInfo.iliario_score+=500;
+		gameInfo.mario_score+=500;
 		Destroy (trans.gameObject, 0.5f);
 	}
 }

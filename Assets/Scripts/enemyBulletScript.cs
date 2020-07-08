@@ -22,11 +22,6 @@ public class enemyBulletScript : MonoBehaviour {
 		} else {
 			sr.flipX = false;
 		}
-		float leftBorder = Camera.main.ViewportToWorldPoint(new Vector3(0, 0)).x;
-		float rightBorder = Camera.main.ViewportToWorldPoint(new Vector3(1, 0)).x;
-		if (transform.position.x < leftBorder || transform.position.x > rightBorder) {
-			Destroy (gameObject,0.5f);
-		}
 	}
 	void FixedUpdate () {
 		rb.velocity = new Vector2(speed, rb.velocity.y);
@@ -58,7 +53,7 @@ public class enemyBulletScript : MonoBehaviour {
 		trans.gameObject.GetComponentInChildren<MeshRenderer> ().sortingLayerName = "FrontLayer";
 		trans.gameObject.GetComponentInChildren<MeshRenderer> ().sortingOrder = 100;
 		trans.gameObject.GetComponentInChildren<TextMesh> ().text = "200";
-		gameInfo.iliario_score+=200;
+		gameInfo.mario_score+=200;
 		Destroy (trans.gameObject, 0.5f);
 	}
 }

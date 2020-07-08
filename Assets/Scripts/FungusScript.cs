@@ -44,7 +44,7 @@ public class FungusScript : MonoBehaviour {
 		trans.gameObject.GetComponentInChildren<MeshRenderer> ().sortingOrder = 100;
 		if (gameObject.name.StartsWith ("fungus2Bonus")) {
 			trans.gameObject.GetComponentInChildren<TextMesh> ().text = "1000";
-			gameInfo.iliario_score+= 1000;
+			gameInfo.mario_score+= 1000;
 		} else {
 			SoundEffectsHelper.Instance.Make_life_plus_Sound ();
 			trans.gameObject.GetComponentInChildren<TextMesh> ().text = "1Up";
