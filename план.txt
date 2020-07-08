@@ -1,0 +1,71 @@
+
+++++++++++++++++++++++++++
+Score:
+ coinBox=200;coin+=1c;
+ ГрибРоста,Цветок,Звезда=1000;
+ brickBox(crash)=50;
+ ГрибЖизни и coin==100 => 1up(+1жизнь);
+ флаг=400;
+ iliario+=time*50; 
+ goomba=100,
+ koopa=(остановить 100,убить 200,толкнуть 400),
+ spiny=200,
+ bowser=5000,
+ пуля=200,
+ piranha=200;
+**************************************
+
+SortingLayer:
+0) FrontLayer (игрок,пули врага и игрока,все бонусы,осколки)
+2) MiddleLayer (все персонажи)
+3) BackLayer (статические предметы)
+
+Tag:
+0)ground - земля
+1)barrier - стены
+2)enemy - враги
+3)bonus - грибРост,грибЖизнь,цветок,звезда,монета
+
+Layer:
+0) PlayerLayer (Игрок)(с Player,Enemy,Bonus,EnemyBullet,Default)
+1) EnemyLayer (Враги)(с Default,Enemy,Player)
+2) BonusLayer (Бонусы)(с Player,Default)
+3) EnemyBulletLayer (пуля врага)(c Player)
+4) PlayerBulletLayer (пуля игрока)(с Enemy,Default)
+5) Default (Все остальное)(с Player,Enemy,Bonus,PlayerBullet,Default)
+6)PlayerNoActiveLayer 
+
+Персонаж:
+ 0)Игрок-Player
+ Игрок:
+  State:0)idle-1)sit-2)run-3)jump
+  Status:0)small-1)big-2)shot
+  bool isUnKill
+ 1)Пуля - PlayerBullet
+ 2)Осколки кирпича - particle
+
+Боксы:
+0)кирпич - brickBox (не активным, активным)
+1)кирпич с грибом - brickWithFungus(не активный, активный, использованный)
+3)кирпич с звездой - brickWithStar(не активный, активный, использованный)
+4)кирпич с несколькими монетами - brickWithCoins(не активный, активный, использованный)
+
+2)прозрачный с грибом - transparentWithFungus
+6)прозрачный с монетой - transparentWithCoin
+
+5)вопрос с монетой - questionCoin
+7)вопрос с грибом и цветком - questionWithFungusAndFlower
+
+Враги:
+ 0)Гриб - goomba
+ 1)Spiny(тоже самое, только нельзя прыгать на него)
+ 2)Черепаха - koopa
+ 3)Buzzy(тоже самое, только нельзя убить пулей)
+ 4)растение - piranha
+ 5)облако с черепахой - Lakitu
+ 6)Пуля - EnemyBullet  и пушка-gunBox
+ 7)дракон босс - Bowser
+**************************
+
+
+ 
